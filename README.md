@@ -5,6 +5,12 @@ example codes for practice
 - GraphQL(VSCode도 동일하게 GraphQL extension을 깔아주면 된다)
    + gql을 사용하였을 때에 syntex hilighting 해준다
 
+## GraphQL 특징
+- query할 때에 POST만 사용한다
+- application/json타입만 사용한다
+- 
+
+
 ## 초기 생성
 1. 먼저 폴더를 생성한다
 ```
@@ -84,6 +90,95 @@ console.log(`Server running at ${serverInfo.url}`);
 ```
 3. 브라우저로 접속하면 랜딩 페이지를 볼 수 있다
    - http://localhost:9000/
+<img width="1423" alt="image" src="https://user-images.githubusercontent.com/22423285/203448648-96ee92cc-44ec-4f98-8f31-2d8befb559dc.png">
+   - 화면 가운데 쿼리 테스트 페이지 클릭한다(Query your server)
+
+### 클라이언트 페이지 만들기
+- 클라이언트에서 어떻게 서버를 호출하고 결과값을 표시하는지 예시이다
+1. client폴더를 만들고 IDE로 연다
+```
+% mkdir client
+```
+2. 코드를 작성한다
+   - index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GraphQL Client</title>
+</head>
+<body>
+    <h1>GraphQL Client</h1>
+    <p>
+        The server says:
+        <strong id="greeting">
+            <!-- dynamically inserted content -->
+        </strong>
+    </p>
+    <script src="app.js"></script>
+</body>
+</html>
+```
+   - app.js
+```
+const GRAPHQL_URL = 'http://localhost:9000';
+
+async function fetchGreeting() {
+    const response = await fetch(GRAPHQL_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            query: `
+                query {
+                  greeting
+                }
+            `
+        }),
+    });
+
+    const { data } = await response.json();
+    return data;
+}
+
+const element = document.getElementById('greeting');
+element.textContent = 'Loading....';
+fetchGreeting().then((data) => {
+    element.textContent = data.greeting;
+});
+```
+
+3. 페이지 리프레시 해서 확인
+
+
+
+## Query Language(QL) 구성
+1. query
+   - select같은 개념이다
+   - send query
+```
+query {
+  greeting
+}
+```
+   - response(정상), 에러일 경우는 에러json 반환한다
+```
+{
+  "data": {
+    "greeting": "Hello world!"
+  }
+}
+```
+   - 기본 동작이기 때문에 query를 빼고 {}만 해도 똑같이 동작한다
+```
+{
+  greeting
+}
+```
+2. fragment
+
 
 
 
