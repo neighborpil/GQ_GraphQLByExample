@@ -83,7 +83,7 @@ console.log(`Server running at ${serverInfo.url}`);
 % node server.js
 ```
 3. 브라우저로 접속하면 랜딩 페이지를 볼 수 있다
-  - http://localhost:9000/
+   - http://localhost:9000/
 
 
 
