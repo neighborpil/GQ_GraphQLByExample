@@ -3,7 +3,7 @@ example codes for practice
 
 ## WebStorm Plugins
 - GraphQL(VSCode도 동일하게 GraphQL extension을 깔아주면 된다)
-  + gql을 사용하였을 때에 syntex hilighting 해준다
+   + gql을 사용하였을 때에 syntex hilighting 해준다
 
 ## 초기 생성
 1. 먼저 폴더를 생성한다
@@ -29,9 +29,9 @@ example codes for practice
 
 ### 쿼리 하나 테스트
 1. IDE로 열어서 server.js파일을 만들어 준다
-  - 기본적인 그래프ql쿼리이다. 
-  - gql이라는 것이 텍스트를 graphql 스키마로 바꿔준다
-  - 이렇게 스키마를 실행하면서 문법에 맞게 제작 되었는지 알 수 있다.
+   - 기본적인 그래프ql쿼리이다. 
+   - gql이라는 것이 텍스트를 graphql 스키마로 바꿔준다
+   - 이렇게 스키마를 실행하면서 문법에 맞게 제작 되었는지 알 수 있다.
 ```
 import { gql } from "apollo-server";
 
@@ -45,7 +45,7 @@ console.log(typeDefs);
 ```
 
 2. 터미널로 가서 실행히본다
- - 스키마가 어떻게 나와있는지, 오류가 있는지 표시한다
+   - 스키마가 어떻게 나와있는지, 오류가 있는지 표시한다
 ```
 % node server.js
 ```
