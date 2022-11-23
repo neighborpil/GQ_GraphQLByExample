@@ -177,10 +177,72 @@ query {
   greeting
 }
 ```
-2. fragment
 
+## Query 예제 테스트
+### Job Board Project
+- 예제 가져와서 제작
+- 로그인만 http로 구현이 되어 있고 만들어 간다
 
+#### 서버
+- Express 프레임워크
+1. 서버 시작(포트: 9000)
+```
+% npm install
+% npm start
+```
+2. graphql 패키지랑 아폴로 서버 설치
+```
+% npm install apollo-server-express graphql
+```
+3. 스키마 파일을 생성한다
+   - schema.graphql
+```
+type Query {
+    greeting: String
+}
+```
+4. 리졸버 파일을 생성한다
+   - resolver.js
+```
+export const resolvers = {
+    Query: {
+        greeting: () => 'Hello world!',
+    },
+};
+```
+5. server.js에서 express가 동작하고 아폴로가 미들웨어로써 동작한다
+   - readFile을 통하여 schema.graphql을 읽어온다
+   - 먼저 apollo서버를 등록
+   - applyMiddleware를 통하여 /graphql uri에 대한것만 프록시로 해결한다
+```
 
+import {ApolloServer} from "apollo-server-express";
+import {readFile} from 'fs';
+import {resolvers} from "./resolvers.js";
+
+...
+
+const typeDefs = await readFile('./schema.graphql', 'utf8');
+const apolloServer = new ApolloServer({typeDefs, resolvers});
+await apolloServer.start();
+// graphql이 express 서버의 미들웨어로 동작하게 해준다. 이를 통해 /graphql uri로 오는것들만 처리
+apolloServer.applyMiddleware({app, path: '/graphql'});
+
+...
+
+```
+4. 서버 시작
+```
+% npm start
+```
+
+#### 클라이언트
+- 리액트
+1. 서버 시작(포트: 3000)
+```
+% npm install
+% npm start
+```
 
 
 
